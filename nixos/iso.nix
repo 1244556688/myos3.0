@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [
@@ -10,9 +10,9 @@
   # Force Plasma 6 (ISO default might be 5)
   services.desktopManager.plasma6.enable = true;
 
-  # Custom ISO Metadata
-  isoImage.isoName = "LuminaOS-v1.0.iso";
-  isoImage.volumeID = "LUMINAOS";
+  # Custom ISO Metadata (Using mkForce to override defaults)
+  isoImage.isoName = lib.mkForce "LuminaOS-v1.0.iso";
+  isoImage.volumeID = lib.mkForce "LUMINAOS";
 
   # Remove ISO helper contents for a cleaner "Modern OS" feel
   isoImage.makeEfiBootable = true;
