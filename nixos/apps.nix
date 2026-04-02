@@ -1,7 +1,14 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # LuminaOS - Software Suite & Programming Tools
+  
+  # Fix: Allow broken packages (ZFS kernel module issue in 24.05)
+  nixpkgs.config.allowBroken = true;
+  
+  # Optimize: Exclude ZFS for faster/stable build in a Live ISO environment
+  boot.supportedFilesystems = lib.mkForce [ "vfat" "ntfs" "cifs" ];
+
   environment.systemPackages = with pkgs; [
     # Core Apps
     firefox
